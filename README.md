@@ -12,3 +12,4 @@ const lt = new Laite(tVisualizer)
 lt.$watch('obj', (val) => console.log(val))
 ```
 # laite
+# laite
