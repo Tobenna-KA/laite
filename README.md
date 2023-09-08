@@ -11,3 +11,12 @@ const lt = new Laite(tVisualizer)
 
 lt.$watch('obj', (val) => console.log(val))
 ```
+
+Deep watch is also available via `$deepWatch`
+
+```js
+const objToWatch = { obj: { arr: [] } }
+const lt = new Laite(tVisualizer)
+
+lt.$watch('obj.arr', (val) => console.log(val))
+```
