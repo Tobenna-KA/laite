@@ -24,7 +24,13 @@ module.exports = class Laite {
         return this._toString.call(obj) === '[object Object]'
     }
     
-    // Updated isKeyExist to support deep keys
+    getState() {
+        return this.$obj;
+    }
+    
+    getSubscribers() {
+        return this.subscribers;
+    }
     isKeyExist(key, obj = this.$obj) {
         const keys = key.split('.')
         let currentObj = obj
@@ -38,9 +44,8 @@ module.exports = class Laite {
         
         return true
     }
-    
-    isSubscribed (key) {
-        return this.subscribers.has(key)
+    isSubscribed(key) {
+        return this.subscribers.has(key);
     }
     
     isFunction (fn) {
@@ -67,37 +72,6 @@ module.exports = class Laite {
         // register the key to be observed under watch
         this.subscribers.set(key, cb)
     }
-    
-    /**
-     * Function that initializes a deep watcher for nested properties
-     * @param key
-     * @param cb callback function that is triggered after a change in value
-     */
-    $deepWatch(key, cb) {
-        if (!this.isFunction(cb)) {
-            throw new TypeError()
-        }
-        
-        if (this.isSubscribed(key)) {
-            console.warn(`[OVERWRITE WARNING] key (${key}) is already being watched, previous definition is being overwritten`)
-        }
-        
-        const keys = key.split('.')
-        if (keys.length < 2) {
-            throw 'Deep watch requires at least two nested keys'
-        }
-        
-        this.deepObserve(this.$obj, keys, cb)
-        // register the key to be observed under watch
-        this.subscribers.set(key, cb)
-    }
-    
-    /**
-     * Creates an observer for a given deep key within the initialized object
-     * @param obj
-     * @param keys Array of keys representing the deep path
-     * @param cb callback function that is triggered after a change in value
-     */
     deepObserve(obj, keys, cb) {
         let currentObj = obj
         let internalValue = currentObj
@@ -116,7 +90,7 @@ module.exports = class Laite {
                         return internalValue
                     },
                     set(newValue) {
-                        const isChanged = internalValue !== newValue
+                        const isChanged = internalValue !== newValue;
                         if (isChanged) {
                             internalValue = newValue
                             cb(newValue)
@@ -130,12 +104,6 @@ module.exports = class Laite {
             }
         }
     }
-    
-    /**
-     * Creates an observer for a given key within the initialized object
-     * @param key
-     * @returns {*}
-     */
     observe(key) {
         if (!this.isKeyExist(key)) {
             throw new ReferenceError();

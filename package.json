@@ -4,7 +4,9 @@
   "description": "Very lightweight mini library bringing reactivity to any website.",
   "main": "index.tsx",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.4",
     "jest": "^29.6.4",
+    "rimraf": "^5.0.1",
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   }
