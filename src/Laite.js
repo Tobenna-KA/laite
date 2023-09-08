@@ -72,6 +72,13 @@ module.exports = class Laite {
         // register the key to be observed under watch
         this.subscribers.set(key, cb)
     }
+    
+    /**
+     * Creates an observer for a given deep key within the initialized object
+     * @param obj
+     * @param keys Array of keys representing the deep path
+     * @param cb callback function that is triggered after a change in value
+     */
     deepObserve(obj, keys, cb) {
         let currentObj = obj
         let internalValue = currentObj
@@ -104,6 +111,11 @@ module.exports = class Laite {
             }
         }
     }
+    
+    /**
+     * Creates an observer for a given deep key within the initialized object
+     * @param key the key to observe
+     */
     observe(key) {
         if (!this.isKeyExist(key)) {
             throw new ReferenceError();
