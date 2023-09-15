@@ -6,8 +6,9 @@ to bring in this reactivity in a very simple API. This is a lightweight mini lib
 ## Usage
 
 ```js
+import Laite from 'Laite'
 const objToWatch = { obj: { arr: [] } }
-const lt = new Laite(tVisualizer)
+const lt = new Laite(objToWatch)
 
 lt.$watch('obj', (val) => console.log(val))
 ```
@@ -15,8 +16,9 @@ lt.$watch('obj', (val) => console.log(val))
 Deep watch is also available via `$deepWatch`
 
 ```js
+import Laite from 'Laite'
 const objToWatch = { obj: { arr: [] } }
-const lt = new Laite(tVisualizer)
+const lt = new Laite(objToWatch))
 
 lt.$deepWatch('obj.arr', (val) => console.log(val))
 ```
